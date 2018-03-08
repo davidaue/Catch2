@@ -275,7 +275,7 @@ namespace Catch {
     };
 #endif
 
-	namespace Detail {
+    namespace Detail {
         template<typename InputIterator>
         std::string rangeToString(InputIterator first, InputIterator last) {
             ReusableStringStream rss;
