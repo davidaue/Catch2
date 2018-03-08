@@ -77,17 +77,18 @@ namespace Catch {
 
 
 #ifdef _MANAGED
-		//! Convert a CLR string to a utf8 std::string
-		template<typename T>
-		std::string clrReferenceToString(T^ ref)
-		{
-			if (ref == nullptr)
-				return std::string("null");
-			auto bytes = System::Text::Encoding::UTF8->GetBytes(ref->ToString());
-			cli::pin_ptr<System::Byte> p = &bytes[0];
-			return std::string(reinterpret_cast<char const *>(p), bytes->Length);
-		}
+        //! Convert a CLR string to a utf8 std::string
+        template<typename T>
+        std::string clrReferenceToString(T^ ref)
+        {
+            if (ref == nullptr)
+                return std::string("null");
+            auto bytes = System::Text::Encoding::UTF8->GetBytes(ref->ToString());
+            cli::pin_ptr<System::Byte> p = &bytes[0];
+            return std::string(reinterpret_cast<char const *>(p), bytes->Length);
+        }
 #endif
+
     } // namespace Detail
 
 
@@ -128,7 +129,7 @@ namespace Catch {
 #ifdef _MANAGED
         template <typename T>
         std::string stringify(T^ e) {
-			return ::Catch::StringMaker<T^>::convert(e);
+            return ::Catch::StringMaker<T^>::convert(e);
         }
 #endif
 
@@ -269,7 +270,7 @@ namespace Catch {
     template <typename T>
     struct StringMaker<T^> {
         static std::string convert(T^ ref) {
-			return ::Catch::Detail::clrReferenceToString(ref);
+            return ::Catch::Detail::clrReferenceToString(ref);
         }
     };
 #endif
@@ -404,13 +405,13 @@ namespace Catch {
     };
 
 #ifdef _MANAGED // Managed types are never ranges
-	template <typename T>
+    template <typename T>
     struct is_range<T^> {
         static const bool value = false;
     };
 #endif
 
-	template<typename Range>
+    template<typename Range>
     std::string rangeToString( Range const& range ) {
         return ::Catch::Detail::rangeToString( begin( range ), end( range ) );
     }
